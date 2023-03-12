@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles.css';
 
 import {Card} from '../../components/Card';
@@ -21,9 +21,19 @@ export function Home() {
 
   }
 
+  useEffect(() => {
+    console.log("useEffect foi chamado!");
+  }, []);
+
   return (
     <div className="container">
-      <h1>Lista de Presença</h1>
+      <header>
+        <h1>Lista de Presença</h1>
+        <div>
+          <strong>Maria Duarte</strong>
+          <img src="https://github.com/duartemariaa.png" alt="Foto de perfil" />
+        </div>
+      </header>
       <input 
         type="text"
         placeholder="Digite o nome..." 
