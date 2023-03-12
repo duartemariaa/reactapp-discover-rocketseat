@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import './styles.css';
 
 import {Card} from '../../components/Card';
@@ -6,7 +6,8 @@ import {Card} from '../../components/Card';
 export function Home() {
   const [studentName, setStudentName] = useState('');
   const [students, setStudents] = useState([]);
-
+  const [user, setUser] = useState({name: '', avatar: ''});
+  
   function handleAddStudent(){
     const newStudent = {
       name: studentName,
@@ -22,7 +23,14 @@ export function Home() {
   }
 
   useEffect(() => {
-    console.log("useEffect foi chamado!");
+    fetch('https://api.github.com/users/duartemariaa')
+    .then(response => response.json())
+    .then(data => {
+      setUser({
+        name: data.name,
+        avatar: data.avatar_url,
+      })
+    })
   }, []);
 
   return (
@@ -30,8 +38,8 @@ export function Home() {
       <header>
         <h1>Lista de Presença</h1>
         <div>
-          <strong>Maria Duarte</strong>
-          <img src="https://github.com/duartemariaa.png" alt="Foto de perfil" />
+          <strong>{user.name}</strong>
+          <img src={user.avatar} alt="Foto de perfil" />
         </div>
       </header>
       <input 
